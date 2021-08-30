@@ -8,6 +8,12 @@ tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse b
 
 # Vector of stations for which to download data
 site_nums <- c("01427207", "01432160", "01435000", "01436690", "01466500")
+# Plot arguments
+p_width = 12
+p_height = 7
+p_units = 'in'
+# dummy variable to force re-downloading data from web
+dummy_date = '2021-08-30'
 
 p1_targets_list <- list(
   tar_target(
@@ -17,27 +23,42 @@ p1_targets_list <- list(
   ),
   tar_target(
     station1_csv,
-    download_nwis_site_data(filepath = site_download_paths[1]),
+    {
+      dummy <- dummy_date
+      download_nwis_site_data(filepath = site_download_paths[1])
+    },
     format = "file"
   ),
   tar_target(
     station2_csv,
-    download_nwis_site_data(filepath = site_download_paths[2]),
+    {
+      dummy <- dummy_date
+      download_nwis_site_data(filepath = site_download_paths[2])
+    },
     format = "file"
   ),
   tar_target(
     station3_csv,
-    download_nwis_site_data(filepath = site_download_paths[3]),
+    {
+      dummy <- dummy_date
+      download_nwis_site_data(filepath = site_download_paths[3])
+    },
     format = "file"
   ),
   tar_target(
     station4_csv,
-    download_nwis_site_data(filepath = site_download_paths[4]),
+    {
+      dummy <- dummy_date
+      download_nwis_site_data(filepath = site_download_paths[4])
+    },
     format = "file"
   ),
   tar_target(
     station5_csv,
-    download_nwis_site_data(filepath = site_download_paths[5]),
+    {
+      dummy <- dummy_date
+      download_nwis_site_data(filepath = site_download_paths[5])
+    },
     format = "file"
   ),
   tar_target(
@@ -59,17 +80,14 @@ p2_targets_list <- list(
   tar_target(
     site_data_annotated,
     annotate_data(site_data_clean, site_filename = site_info_csv)
-  ),
-  tar_target(
-    site_data_styled,
-    style_data(site_data_annotated)
   )
 )
 
 p3_targets_list <- list(
   tar_target(
     figure_1_png,
-    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png", site_data_styled),
+    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png", site_data_annotated,
+                         width = p_width, height = p_height, units = p_units),
     format = "file"
   )
 )
