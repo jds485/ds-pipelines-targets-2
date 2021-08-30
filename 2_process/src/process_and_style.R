@@ -11,9 +11,9 @@ annotate_data <- function(site_data_clean, site_filename){
     select(station_name = station_nm, site_no, dateTime, water_temperature, latitude = dec_lat_va, longitude = dec_long_va)
   
   # make station name a factor
-  style_data <- style_data(annotated_data)
+  styled_data <- style_data(annotated_data)
   
-  return(style_data)
+  return(styled_data)
 }
 
 
