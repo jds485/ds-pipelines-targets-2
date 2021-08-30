@@ -5,15 +5,15 @@ process_data <- function(nwis_data){
   return(nwis_data_clean)
 }
 
-annotate_data <- function(site_data_clean, site_filename){
-  site_info <- read_csv(site_filename)
+annotate_data <- function(site_data_clean, site_info, out_filename){
   annotated_data <- left_join(site_data_clean, site_info, by = "site_no") %>% 
     select(station_name = station_nm, site_no, dateTime, water_temperature, latitude = dec_lat_va, longitude = dec_long_va)
   
   # make station name a factor
   styled_data <- style_data(annotated_data)
   
-  return(styled_data)
+  write_csv(styled_data, out_filename)
+  return(out_filename)
 }
 
 
